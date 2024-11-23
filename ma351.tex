@@ -1,0 +1,67 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%% Author: Theo Park
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{report}
+\usepackage[utf8]{inputenc}
+
+\usepackage{algorithm} % Wraps algorithmic env and turns it in to a figure -- I prefer not using it bc of the pagebreak
+% algorithmic < algorithmicx < algpseudocode < algpseudocodex -- has indentation guide and LComment that others don't
+\usepackage{algpseudocodex}
+\algnewcommand{\LineComment}[1]{\State \(\triangleright\) #1} % Line comment env
+\usepackage{amsmath} % \text
+\usepackage{amssymb} % \therefore
+\usepackage{forest} % Treeeeeeeee
+\usepackage{hyperref} % hyperlink for toc
+\usepackage{import} % better \input \include
+\usepackage{multicol} % figures side by side
+%\usepackage{palatino} % font
+%\usepackage[default]{sourcesanspro} % font
+\usepackage{soul} % \st
+\usepackage{tikz} % you know what tikz is
+\usetikzlibrary{calc,shapes.multipart,chains,arrows}
+
+% Pkg used for both header and footer
+\usepackage{fancyhdr}
+% Header
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+% Footer
+\renewcommand{\footrulewidth}{0.5pt} % Footer line thickness
+\rfoot{\small{\textit{By Theo Park}}}
+
+% Title page
+\title{Elementary Linear Algebra}
+\author{Theo Park}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\pagestyle{fancy}
+
+% TOC
+
+\tableofcontents
+
+% Chapter 1
+
+\chapter{Systems of Linear Equations}
+
+Stuff about vector space, rank, Gaussian elimination, column space null space, etc.
+
+% Chapter 2
+
+\chapter{Linear Independence and Dimension}
+
+Stuff about linear independence test, basis, dimension, row space, rank-nullity theorem, etc.
+
+% Chapter 3
+
+\end{document}
+
