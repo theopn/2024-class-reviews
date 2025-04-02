@@ -1,0 +1,172 @@
+%! TEX root = ../cs251.tex
+
+\textit{Algorithms} are any well-defined computational procedures that take some value(s) as input and produce more value(s) as output. They are \textbf{effective}, \textbf{precise}, and \textbf{finite}. There are several ways to analyze the runtime of an algorithm.
+
+\section{Power Law}
+
+\noindent Construct a hypothesis using $T(n) = an^{b}$, where $b = \log (ratio)$.
+This section is not terribly important.
+
+\section{Runtime Expressions}
+
+% for (i = 1; i <= n; i++)
+% for (i = 0; i < n; i++)
+\begin{multicols}{2}
+  \noindent \hrulefill
+  \begin{algorithmic}
+    \For{$i = 1$ to $n$} \Comment{\texttt{for (i = 1; i <= n; i++)}}
+    \State A constant time operation
+    \EndFor
+  \end{algorithmic}
+  \noindent \hrulefill
+
+  $T(n) = \sum_{i=1}^{n} c = cn$
+
+  \columnbreak
+
+  \noindent \hrulefill
+  \begin{algorithmic}
+    \For{$i = 0$ to $n - 1$} \Comment{\texttt{for (i = 0; i < n; i++)}}
+    \State A constant time operation
+    \EndFor
+  \end{algorithmic}
+  \noindent \hrulefill
+
+  $T(n) = \sum_{i=0}^{n-1} c = c(n - 1 + 1) = cn$
+\end{multicols}
+
+% for (int i = 0; i <=n; i += 2)
+% for (int i = 0; i <= n; i++)
+%   for (int j = i; i < n; j++)
+\begin{multicols}{2}
+  \noindent \hrulefill
+  \begin{algorithmic}[1]
+    \LineComment{\texttt{for (int i = 0; i <= n; i += 2)}}
+    \For{$i = 0$ to $n$, increment by $2$}
+    \State $n$ time operation
+    \EndFor
+  \end{algorithmic}
+  \noindent \hrulefill
+
+  \noindent Note that $i$ increases by 2, so express its sequence in terms of increments by 1.
+  \begin{align*}
+    i = 0, 2, 4, 6, ..., n = 2 \times 0, 2 \times 1, 2 \times 2, ..., 2 \times \frac{n}{2} \\
+    T(n) = \sum_{k=0}^{\frac{n}{2}} n = n \sum_{k=0}^{\frac{n}{2}} 1 = n (\frac{n}{2} + 1) = \frac{1}{2} n^2 + n
+  \end{align*}
+
+  \columnbreak
+
+  \noindent \hrulefill
+  \begin{algorithmic}[1]
+    \For{$i = 0$ to $n$}
+    \For{$j = 1$ to $n - 1$}
+    \State A constant time operation
+    \EndFor
+    \EndFor
+  \end{algorithmic}
+  \noindent \hrulefill
+
+  $T(n) = \sum_{i=0}^{n} \sum_{j=1}^{n-1} c = \sum_{i=0}^{n} c(n - 1) = c(n - 1)(n+1) = cn^2 - c$
+\end{multicols}
+
+% for (int i = 0; i <= n; i += 2)
+%   for (int j = 1; j < n; j++)
+% for (int i = 0; i <= n; i++)
+%   for (int j = i; j < n; j++)
+\begin{multicols}{2}
+  \noindent \hrulefill
+  \begin{algorithmic}[1]
+    \For{$i = 0$ to $n$, increment by 2}
+    \For{$j = 1$ to $n - 1$}
+    \State $n$ time operation
+    \EndFor
+    \EndFor
+  \end{algorithmic}
+  \noindent \hrulefill
+
+  $T(n) = \sum_{k=0}^{\frac{n}{2}} \sum_{j=1}^{n-1} n = \sum_{k=0}^{\frac{n}{2}} n(n - 1) = n(n - 1)(\frac{n}{2} + 1) = \frac{1}{2} n^3 + \frac{1}{2} n^2 - n$
+
+  \columnbreak
+
+  \noindent \hrulefill
+  \begin{algorithmic}[1]
+    \For{$i = 0$ to $n$}
+    \For{$j = i$ to $n - 1$}
+    \State $n$ time operation
+    \EndFor
+    \EndFor
+  \end{algorithmic}
+  \noindent \hrulefill
+
+  $T(n) = \sum_{i=0}^{n} \sum_{j=i}^{n-1} = \sum_{i=0}^{n} (\sum_{j=0}^{n-1} n - \sum_{j=0}^{i-1} n) = ... = n^2 (n + 1) - \frac{1}{2} n^2 (n+1) = \frac{1}{2} n^2 (n+1)$
+\end{multicols}
+
+% for (int i = 0; i <= n; i += 2)
+%   for (int j = i; j < n; j++)
+% for (int i = 1; i <= n; i *= 2)
+\begin{multicols}{2}
+  \noindent \hrulefill
+  \begin{algorithmic}[1]
+    \For{$i = 0$ to $n$, increment by 2}
+    \For{$j = i$ to $n - 1$}
+    \State $n$ time operation
+    \EndFor
+    \EndFor
+  \end{algorithmic}
+  \noindent \hrulefill
+
+  $T(n) = \sum_{k=0}^{\frac{n}{2}} \sum{j=2k}^{n-1} n = \sum_{k=0}^{\frac{n}{2}} (\sum_{j=0}^{n-1} n - \sum_{j=0}^{2k-1} n) = ... = n^2(\frac{n}{2} + 1) - 2n \frac{\frac{n}{2} (\frac{n}{2} + 1)}{2} = \frac{n^3}{2} + n^2 - \frac{n^3}{4} - \frac{n^2}{2} = \frac{1}{4} n^3 + \frac{1}{2} n^2$
+
+  \columnbreak
+
+  \noindent \hrulefill
+  \begin{algorithmic}[1]
+    \For{$i = 0$ to $n$, $i = i * 2$}
+    \State A constant time operation
+    \EndFor
+  \end{algorithmic}
+  \noindent \hrulefill
+
+  Express the sequence in terms of increments by 1
+  \begin{itemize}
+    \item $i = 1 = 2^0$
+    \item $i = 2 = 2^1$
+    \item $i = 4 = 2^2$
+    \item $i = 2^k <= n -> k <= log_{2} (n)$
+  \end{itemize}
+
+  $T(n) = \sum_{k=0}^{\log_{2}} (n) c = c(log_{2} (n) + 1) = c \log_{2} (n) + c$
+\end{multicols}
+
+\begin{multicols}{2}
+  \noindent \hrulefill
+  \begin{algorithmic}[1]
+    \For{$i = 1$ to $n$, $i = i * 3$}
+    \State $\log (n)$ time operation
+    \EndFor
+  \end{algorithmic}
+  \noindent \hrulefill
+
+  $T(n) = \sum_{k=0}^{log_{3} (n)} \log (n) = \log (n) (\log_{3} (n) + 1) \approx \log (n) log (n) + \log (n)$
+
+  \columnbreak
+
+  \noindent \hrulefill
+  \begin{algorithmic}[1]
+    \For{$i = 1$ to $n$}
+    \State $n$ time operation
+    \EndFor
+  \end{algorithmic}
+  \noindent \hrulefill
+
+  $T(n) = \sum_{k=0}^{\log_{2} (n)} = n(\log_{2} (n) + 1) = n \log_{2} (n) + n \approx n \log (n) + n$
+\end{multicols}
+
+\section{Asymptotic Runtime Analysis}
+
+\begin{itemize}
+  \item Big-O: $f(n) \in O(g(n))$ if there exist positive constants $c$ and $n_0$ such that $0 \leq f(n) \leq cg(n)$ for all $n \geq n_0$
+  \item Big-Omega: $f(n) \in \Omega(g(n))$ if there exist positive constants $c$ and $n_0$ such that $0 \leq c(g)n \leq f(n)$ for all $n \geq n_0$
+  \item Big-Theta: One number is both Big-O and Big-Omega
+\end{itemize}
+

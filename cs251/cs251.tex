@@ -57,17 +57,17 @@
 % Chapter 1
 
 \chapter{Runtime Analysis}
-%\import{cs251-chapters}{chapter1.tex}
+\import{chapters}{chapter1.tex}
 
 % Chapter 2
 
 \chapter{Intro to Data Structures}
-%\import{cs251-chapters}{chapter2.tex}
+\import{chapters}{chapter2.tex}
 
 % Chapter 3
 
 \chapter{Sorting Algorithms}
-%\import{cs251-chapters}{chapter3.tex}
+\import{chapters}{chapter3.tex}
 
 % Chapter 4
 
@@ -101,60 +101,7 @@
 
 \chapter{Undirected Graph}
 
-\textit{Graph} is a set of vertices $V$ and a collection of edges $E$ that connect a pair of vertices. \textit{Undirected graph} is a graph where edges do not have direction. \textit{Degree of a vertex} representing how many edges is this vertex connected to.
-
-\begin{itemize}
-  \item \textbf{Handshaking Theorem}: For any undirected graphs, \(\sum_{v \text{ in } V} deg(v) = 2 \cdot |E|\)
-  \item Maximum degree of a vertex: $deg(v) \leq |V| - 1$, because a vertex cane be connected to all other vertices at most
-  \item Maximum edge count: $|E| \leq \frac{|V|(|V| - 1)}{2}$
-  \item \textbf{\textit{Complete graph}}: A graph is said to be complete when each vertex pair is connected by a unique edge. Id est, a complete graph has the maximum number of edges ($|E| = \frac{|V|(|V| - 1)}{2}$) and each vertex has the maximum degree ($deg(v) = |V| - 1$)
-\end{itemize}
-
-\section{Adjacency Matrix and List}
-
-\section{DFS}
-
-\noindent \hrulefill
-\begin{algorithmic}[1]
-  \Function{Depth-first-search}{$G, s$} \Comment{$G$ is a graph containing $|V|$ vertices, $s$ is the starting node}
-  \State $S \gets$ new stack
-  \State Push $s$ to $S$
-  \item[]
-  \While{$S$ is not empty}
-  \State $u \gets$ popped element from $S$
-  \If{$u$ is not visited}
-  \For{$w$ adjacent to $v$}
-  \If{$w$ is not visited}
-  \State Push $w$ to $S$
-  \EndIf
-  \EndFor
-  \EndIf
-  \EndWhile
-  \EndFunction
-\end{algorithmic}
-\noindent \hrulefill
-
-\section{BFS}
-
-\noindent \hrulefill
-\begin{algorithmic}[1]
-  \Function{Depth-first-search}{$G, s$} \Comment{$G$ is a graph containing $|V|$ vertices, $s$ is the starting node}
-  \State $Q$ is a new queue
-  \State Enqueue $s$ to $Q$
-  \item[]
-  \State Mark $v$ as visited
-  \While{$Q$ is not empty}
-  \State $u \gets$ dequeued item from $Q$
-  \For{$w$ adjacent to $u$}
-  \If{$w$ is not visited}
-  \State Enqueue $w$ to $Q$
-  \State Mark $w$ as visited
-  \EndIf
-  \EndFor
-  \EndWhile
-  \EndFunction
-\end{algorithmic}
-\noindent \hrulefill
+\import{chapters}{chapter6.tex}
 
 % Chapter 7
 
