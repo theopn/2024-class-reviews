@@ -2,7 +2,12 @@
 
 ## CS251: Data Structures & Algorithms
 
-DSA review, with focuses on graph theory.
+DSA review, with a focuse on the graph theory.
+
+Contents from Purdue CS251 course (Fall 2022, taught by Prof. Bejarano) and Introduction to Algorithms Third Edition (CLRS).
+
+All example codes are written in Python and displayed using the `pythonhilight` package, I try to stick to the CLRS pseudocode as close as possible.
+Full code can be found in the `/cs251/chapters/code/` directory.
 
 ## MA351: Linear Algebra
 
