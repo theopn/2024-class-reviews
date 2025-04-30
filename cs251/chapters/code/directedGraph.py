@@ -1,3 +1,4 @@
+from heapq import heappush, heappop
 from collections import deque
 
 
@@ -69,6 +70,9 @@ class Graph:
         # It is because if the graph is DAG, all nodes will eventually have
         # zero indegree after edge removal
         return [] if len(ordering) != self.n else ordering
+
+
+
 
 
 def testTopologicalSort():
