@@ -1,6 +1,5 @@
-def max_heapify(arr, i):
-    n = len(arr)
-
+# heapify first n elements of the array
+def max_heapify(arr, n, i):
     l = 2 * i + 1
     r = 2 * i + 2
 
@@ -13,7 +12,7 @@ def max_heapify(arr, i):
 
     if largest != i:
         arr[i], arr[largest] = arr[largest], arr[i]
-        max_heapify(arr, largest)
+        max_heapify(arr, n, largest)
 
 
 def build_heap(arr):
@@ -21,7 +20,21 @@ def build_heap(arr):
 
     lastLeftNode = (n // 2) - 1  # floor(n / 2) - 1
     for i in range(lastLeftNode, -1, -1):
-        max_heapify(arr, i)
+        max_heapify(arr, n, i)
+
+
+def heap_sort(arr):
+    n = len(arr)
+
+    build_heap(arr)
+
+    for i in range(n - 1, 0, -1):
+        # move the first element of the heap (largest) to the back
+        arr[i], arr[0] = arr[0], arr[i]
+        # build heap with the first i elements
+        max_heapify(arr, i, 0)
+
+    return arr
 
 
 if __name__ == "__main__":
@@ -39,3 +52,7 @@ if __name__ == "__main__":
     arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     build_heap(arr)
     print(arr)
+
+    # heap sort testing
+    arr = [3, 4, 7, 11, 14.0, 14, 12, 20, 17, 200, 16, 20]
+    print(heap_sort(arr))
