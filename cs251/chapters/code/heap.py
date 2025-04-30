@@ -28,11 +28,14 @@ def heap_sort(arr):
 
     build_heap(arr)
 
-    for i in range(n - 1, 0, -1):
+    def sortdown(i):
         # move the first element of the heap (largest) to the back
         arr[i], arr[0] = arr[0], arr[i]
-        # build heap with the first i elements
+        # rebuild heap with the first i elements
         max_heapify(arr, i, 0)
+
+    for i in range(n - 1, 0, -1):
+        sortdown(i)
 
     return arr
 
