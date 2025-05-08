@@ -1,0 +1,144 @@
+The constructor for weighted directed graph takes an edge list with an extra information, namely the weight of the edge.
+When building an adjacency list/matrix, a tuple containing the destination vertex and the weight is pushed.
+
+\begin{python}
+class Graph:
+    # e.g.,: Graph(n = 3, edges = [[0,1,3],[1,2,1],[0,2,6]])
+    # creates a graph with 3 nodes indexed 0, 1, 2,
+    # with 0 -> 1 (weight 3), 0 -> 2 (weight 6), 1 -> 2 (weight 1)
+    def __init__(self, n: int, edges: list[list[int]]):
+        self.n = n
+        self.edges = edges
+
+        self.adjList = [[] for _ in range(n)]
+        for u, v, weight in edges:
+            self.adjList[u].append((v, weight))
+
+        self.adjMatrix = [[float("inf") for _ in range(n)] for _ in range(n)]
+        for i in range(v):
+            self.adjMatrix[i][i] = 0
+        for u, v, w in edges:
+            self.adjMatrix[u][v] = weight
+\end{python}
+
+\section{Shortest Path}
+
+TODO: Explanation about edge relaxation
+
+\subsection{Bellman-Ford Algorithm}
+
+Dijkstra should not be used on a graph with negative edge(s).
+
+\noindent \hrulefill
+\begin{algorithmic}[1]
+  \Function{Bellman-Ford-shortest-path}{$G, V$} \Comment{$G$ is the graph, $V$ is the vertex list}
+    \State $dist \gets$ array size $|V|$
+    \State $prev \gets$ array size $|V|$
+
+    \For{$v$ in $V$}
+      \If{$v = s$}
+        $dist[v] \gets 0$
+      \EndIf
+      \If{$v \neq s$}
+        $dist[v] \gets \infty$
+      \EndIf
+      \State $prev[u] \gets -1$
+    \EndFor
+    \For{$i = 1$ to $|V| - 1$}
+      \For{$e$ in $E$} \Comment{Edge $e$ connects vertex $u$ and $v$}
+        \If{$weight[e]$ + $dist[u]$ $<$ $dist[v]$}
+          \State $dist[v] = dist[u] + weight[e]$
+          \State $prev[v] = u$
+        \EndIf
+      \EndFor
+    \EndFor
+    \LComment{Run the for loop once again. If the shortest distance is updated, then it means there is a negative weight cycle}
+    \For{$e$ in $E$} \Comment{Edge $e$ connects vertex $u$ and $v$}
+      \If{$weight[e]$ + $dist[u]$ $<$ $dist[v]$}
+        \State \Output{Negative weight edge cycle detected}
+        \State \Return{}
+      \EndIf
+    \EndFor
+  \EndFunction
+\end{algorithmic}
+\noindent \hrulefill
+
+\subsection{Dijkstra's Algorithm}
+
+\begin{python}
+    def dijkstra(self, v):
+        dist = [float("inf")] * self.n
+        prev = [None] * self.n
+
+        dist[v] = 0
+        q = [(0, v)]
+
+        while q:
+            priority, u = heappop(q)
+
+            if priority == dist[u]:
+                for w, weight in self.adjList[u]:
+                    candidate = dist[u] + weight
+                    if candidate < dist[w]:
+                        dist[w] = candidate
+                        prev[w] = u
+                        heappush(q, (candidate, w))
+
+        return dist, prev
+\end{python}
+
+\subsection{Floyd-Warshall All Pairs Shortest Path Algorithm}
+
+Dijkstra and Bellman-Ford are examples of "single source" shortest path algorithm, computing shortest path from a given vertex to other nodes.
+Floyd-Warshall algorithm is an "all pairs" shortest path algorithm, computing the shortest path between all pairs of vertices.
+It uses an adjacency matrix to compute shortest paths in $O(n^3)$ time.
+
+\begin{python}
+    def floydWarshall(self):
+        dist = [row[:] for row in self.adjMatrix]
+
+        for k in range(self.n):
+            for i in range(self.n):
+                for j in range(self.n):
+                    dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])
+
+        return dist
+\end{python}
+
+\section{Articulation Points}
+
+An articulation point is a vertex such that removing it from the graph increases the number of connected components.
+
+\noindent \hrulefill
+\begin{algorithmic}[1]
+  \Function{}{$G, s, d$} \Comment{$G$ is the graph, $s$ is the starting vertex, $d$ is the //TODO}
+  \State Mark $s$ as visited
+  \State $discovery[s] \gets d$
+  \State $low[s] \gets d$
+  \EndFunction
+\end{algorithmic}
+\noindent \hrulefill
+
+\section{Minimum Spanning Tree}
+
+\begin{itemize}
+  \item Minimum: $\sum weight$ is minimum
+  \item Spanning: All vertices in the graph are connected
+  \item Tree: No cycle
+\end{itemize}
+
+There are two fundamental properties of MST:
+
+\begin{enumerate}
+  \item \textit{Cycle Property}: For any cycle $C$ in the graph, if the weight of an edge $e \in C$ is higher than any of individual weights of all other edges in $C$, then its edge cannot belong in the MST.
+  \item \textit{Cut Property}: For any \textit{cut} (subdivision of graph with disjoint) $C$ in the graph, if the weight of an edge $e$ in the cut-set of $C$ is strictly smaller than the weights of all other edges of the cut-set of $C$, then this edge belongs to all MST of the graph.
+\end{enumerate}
+
+\subsection{Cycle and Cut Properties}
+
+\subsection{Prim's Algorithm}
+
+\section{Union-Find}
+
+\subsection{Kruskal MST Algorithm}
+

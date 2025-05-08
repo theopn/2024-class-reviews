@@ -105,125 +105,13 @@
 
 \chapter{Directed Graphs}
 
-\section{Strong Connectivity}
-
-\subsection{Brute-force Strong Connectivity Algorithm}
-
-\subsection{Brute-force using Stack}
-
-\subsection{Strongly Connected Components and Kosaraju's Algorithm}
-
-\section{Directed Acyclic Graphs}
-
-\subsection{Topological Sort}
+\import{chapters}{chapter7.tex}
 
 % Chapter 8
 
 \chapter{Weighted Graphs}
 
-\section{Shortest Path}
-
-\subsection{Dijkstra's Algorithm}
-
-\noindent \hrulefill
-\begin{algorithmic}[1]
-  \Function{Dijkstra-shortest-path}{$G, s$} \Comment{$G$ is a graph containing $|V|$ vertices, $s$ is the starting node}
-    \State $dist \gets$ array size $|V|$
-    \State $prev \gets$ array size $|V|$
-    \State $Q \gets$ a new min-heap with distance values as keys
-    \item[]
-    \LComment{Initialization step}
-    \For{$v$ in $Vertices$}
-      \If{$v = s$}
-        $dist[v] \gets 0$
-      \EndIf
-      \If{$v \neq s$}
-        $dist[v] \gets \infty$
-      \EndIf
-      \State $prev[u] \gets -1$
-      \State Add a tuple $(dist[v], v)$ to $Q$
-      \While{$Q$ is not empty}
-        \State $u \gets$ the value with minimum dist from $Q$ \Comment{$O(1)$}
-      \EndWhile
-    \EndFor
-  \EndFunction
-\end{algorithmic}
-\noindent \hrulefill
-
-\subsection{Bellman-Ford Algorithm}
-
-Dijkstra should not be used on a graph with negative edge(s).
-
-\noindent \hrulefill
-\begin{algorithmic}[1]
-  \Function{Bellman-Ford-shortest-path}{$G, V$} \Comment{$G$ is the graph, $V$ is the vertex list}
-    \State $dist \gets$ array size $|V|$
-    \State $prev \gets$ array size $|V|$
-
-    \For{$v$ in $V$}
-      \If{$v = s$}
-        $dist[v] \gets 0$
-      \EndIf
-      \If{$v \neq s$}
-        $dist[v] \gets \infty$
-      \EndIf
-      \State $prev[u] \gets -1$
-    \EndFor
-    \For{$i = 1$ to $|V| - 1$}
-      \For{$e$ in $E$} \Comment{Edge $e$ connects vertex $u$ and $v$}
-        \If{$weight[e]$ + $dist[u]$ $<$ $dist[v]$}
-          \State $dist[v] = dist[u] + weight[e]$
-          \State $prev[v] = u$
-        \EndIf
-      \EndFor
-    \EndFor
-    \LComment{Run the for loop once again. If the shortest distance is updated, then it means there is a negative weight cycle}
-    \For{$e$ in $E$} \Comment{Edge $e$ connects vertex $u$ and $v$}
-      \If{$weight[e]$ + $dist[u]$ $<$ $dist[v]$}
-        \State \Output{Negative weight edge cycle detected}
-        \State \Return{}
-      \EndIf
-    \EndFor
-  \EndFunction
-\end{algorithmic}
-\noindent \hrulefill
-
-\section{Articulation Points}
-
-An articulation point is a vertex such that removing it from the graph increases the number of connected components.
-
-\noindent \hrulefill
-\begin{algorithmic}[1]
-  \Function{}{$G, s, d$} \Comment{$G$ is the graph, $s$ is the starting vertex, $d$ is the //TODO}
-  \State Mark $s$ as visited
-  \State $discovery[s] \gets d$
-  \State $low[s] \gets d$
-  \EndFunction
-\end{algorithmic}
-\noindent \hrulefill
-
-\section{Minimum Spanning Tree}
-
-\begin{itemize}
-  \item Minimum: $\sum weight$ is minimum
-  \item Spanning: All vertices in the graph are connected
-  \item Tree: No cycle
-\end{itemize}
-
-There are two fundamental properties of MST:
-
-\begin{enumerate}
-  \item \textit{Cycle Property}: For any cycle $C$ in the graph, if the weight of an edge $e \in C$ is higher than any of individual weights of all other edges in $C$, then its edge cannot belong in the MST.
-  \item \textit{Cut Property}: For any \textit{cut} (subdivision of graph with disjoint) $C$ in the graph, if the weight of an edge $e$ in the cut-set of $C$ is strictly smaller than the weights of all other edges of the cut-set of $C$, then this edge belongs to all MST of the graph.
-\end{enumerate}
-
-\subsection{Cycle and Cut Properties}
-
-\subsection{Prim's Algorithm}
-
-\section{Union-Find}
-
-\subsection{Kruskal MST Algorithm}
+\import{chapters}{chapter8.tex}
 
 % Chapter 9
 
