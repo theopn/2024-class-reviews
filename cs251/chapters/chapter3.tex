@@ -453,8 +453,6 @@ Because $h \geq \log_{2}(n!) \in \Theta(n \log_{2}(n))$, $h \in \Omega(n \log_{2
 
 \textproc{Counting-sort} is a \textit{non-comparison} sorting algorithm. It uses the extra array $count$, where its index initially represents the value of each element in $A$ (e.g., if there are three 5's in $A$, $count[5] = 3$ before the ``accumulation'' step to determine the final index), to sort the array.
 
-\noindent \hrulefill
-
 \begin{python}
 def countingSort(arr):
     n = len(arr)
