@@ -174,6 +174,7 @@ def insertion_sort(arr):
         \EndWhile
       \EndFor
     \EndFor
+    \item[]
     \State \Return{$A$}
   \EndFunction
 \end{algorithmic}
@@ -201,7 +202,7 @@ def heap_sort(arr):
     return arr
 \end{python}
 
-The algorithm first builds the heap from the array elements (refer to section 2.5 for methods for building a heap). \textproc{Bottom-up} is used for its runtime. Then the algorithm calls \textproc{Sort-down} from the last heap elements down to the first.
+The algorithm first builds the heap from the array elements (refer to section 2.6.1 for the \textproc{max\_heapify} and \textproc{build\_heap} functions). Then the algorithm calls \textproc{Sort-down} from the last heap elements down to the first.
 
 \subsection{Sort Down Algorithm}
 
@@ -454,27 +455,30 @@ Because $h \geq \log_{2}(n!) \in \Theta(n \log_{2}(n))$, $h \in \Omega(n \log_{2
 
 \noindent \hrulefill
 
-\begin{algorithmic}[1]
-  \Function{Counting-sort}{$A, k$} \Comment{$A$ is an array size $n$, $k$ is the max element of $A$}
-    \State $count \gets$ array size $k + 1$ filled with 0
-    \For{$i = 0$ to $n - 1$} \Comment{Num occurrence in each element in A, $O(n)$}
-      \State $count[A[i]] \gets count[A[i]] + 1$
-    \EndFor
-    \item[]
-    \For{$i = 1$ to $k$} \Comment{Accumulate the values in $count$ from left to right, $O(k)$}
-      \State $count[i] \gets count[i] + count[i - 1]$
-    \EndFor
-    \item[]
-    \State $out \gets$ array size $n$
-    \For{$i = n - 1$ down to 0} \Comment{Use $count$ values to determine the index for the elements in $A$, $O(n)$}
-      \State $out[count[A[i]] - 1] \gets A[i]$
-      \State $count[A[i]] \gets count[A[i]] - 1$
-    \EndFor
-    \item[]
-    \State \Return{$out$}
-  \EndFunction
-\end{algorithmic}
-\noindent \hrulefill
+\begin{python}
+def countingSort(arr):
+    n = len(arr)
+
+    # Step 1 O(n): Find the maximum element and initialize count array
+    k = max(arr)
+    cnt = [0] * (k + 1)
+
+    # Step 2 O(n): Find the number of occurences in each element in the array
+    for i in range(n):
+        cnt[arr[i]] += 1
+
+    # Step 3 O(k): Convert count into a prefix sum array of itself
+    for i in range(1, k + 1):
+        cnt[i] += cnt[i - 1]
+
+    # Step 4 O(n): Use the count array to find the index of each element
+    out = [None] * n
+    for i in range(n - 1, -1, -1):
+        out[cnt[arr[i]] - 1] = arr[i]
+        cnt[arr[i]] -= 1
+
+    return out
+\end{python}
 
 \begin{enumerate}
   \item Suppose we have an array $A = [ 2, 5, 3, 0, 2, 3, 0, 3 ]$. $k = \textproc{max}(A) = 5$.
